@@ -1,6 +1,6 @@
-import { gpa } from "./types";
+import { SemesterGPA, gpa } from "./types";
 
-export const calculateGPA = (data: gpa[]):number[] => {
+export const calculateGPA = (gpaArray: gpa[]): number[] => {
     const gradeMap: Record<string, number> = {
         'O': 10,
         'A+': 9,
@@ -13,11 +13,38 @@ export const calculateGPA = (data: gpa[]):number[] => {
     let sum = 0;
     let totalCredits = 0;
 
-    for (const { grade, credits } of data) {
-        const gradeValue = gradeMap[grade] || 9;
-        sum += credits * gradeValue;
-        totalCredits += Number(credits);
-    }
+    gpaArray.map(e=>{
+        const gradeValue = gradeMap[e.grade] || 9;
+        sum += e.credits * gradeValue;
+        totalCredits += Number(e.credits);
+    })
 
-    return [Number((sum / totalCredits).toFixed(2)),totalCredits];
+    const gpa = sum / totalCredits
+    return [gpa, totalCredits, sum];
 };
+
+export const calculateCGPA = (sem: SemesterGPA[]) => {
+    let totalCredits = 0;
+    let sum = 0;
+
+    sem.map(e => {
+        sum += e.totalSum
+        totalCredits += e.totalCredits;
+    })
+
+    return sum / totalCredits
+}
+
+export const greetText=(n:number):string=>{
+    if(n>=9){
+        return "Well, Good Score!! Keep it up.."
+    }else if(n>=8){
+        return "Yeah, Good!! Need to improve."
+    }else if(n>7){
+        return "Score is quite lesser!! Try to improve."
+    }else if(n>=6){
+        return "Need more care on your Studies."
+    }else{
+        return "Study well to increase your CGPA."
+    }
+}
