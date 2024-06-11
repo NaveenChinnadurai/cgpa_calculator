@@ -158,8 +158,7 @@ const GPA: React.FC<prop> = ({ id, deleteSemester, keys, getCurrGPA }) => {
                 <div className='flex gap-2'>
                     <Button className='bg-slate-700 hidden sm:flex' onClick={resetFields}>Reset</Button>
                     <Button className='bg-slate-700' onClick={() => deleteSemester(keys)}>
-                        <Delete className="text-xl mr-1" />
-                        <span className={window.innerWidth <= 350 ? "hidden":"flex"}>Delete Semester</span>
+                        <Delete className="text-xl mr-1" />Delete Semester
                     </Button>
                 </div>
             </div>
